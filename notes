@@ -1,0 +1,76 @@
+## Displaying the number of missing values
+
+
+
+
+
+import pandas as pd
+df=pd.read_csv('F:/tested.csv')
+df
+
+
+
+import pandas as pd
+df=pd.read_csv('F:/tested.csv')
+df.describe()
+
+df.info()
+
+df.isnull().sum()
+
+## Visualize the missing values
+
+##visulize the missing values as bar plot and matrix plot using
+import missingno as msno
+msno.bar(df)
+msno.matrix(df)
+
+#Handle the missing values by delecting data objects
+df.dropna(inplace=True)
+df.isnull().sum()
+
+#Handle the missing values by delecting attributes
+#del df['Age']
+#del df['Cabin']
+#df.head(10)
+
+#handle the missing value with arbitary values,mean and mode
+print("Null values ")
+print(df.isnull().sum())
+print("count of Null values after imputation")
+df['Cabin']=df['Cabin'].fillna(df['Cabin'].mode()[0])
+df['Age']=df['Age'].fillna(df['Age'].mode()[0])
+print(df.isnull().sum())
+
+#handle the missing values using fowward fill and backward fill
+df.head().isna()
+
+import pandas as pd
+df=pd.read_csv('F:/tested.csv')
+df['Age'].fillna(method='ffill',limit=1,inplace=True)
+df['Cabin'].fillna(method='bfill',inplace=True)
+
+
+
+df['Cabin'].fillna(method='bfill',inplace=True)
+
+df.head().isna()
+
+print("Null values ")
+print(df.isnull().sum())
+print("count of Null values after imputation")
+#df['Cabin']=df['Cabin'].fillna(df['Cabin'].mean())
+df['Age']=df['Age'].fillna(df['Age'].mean())
+print(df.isnull().sum())
+
+import pandas as pd
+df=pd.read_csv('F:/tested.csv')
+
+
+median=df.Age.median()
+median
+
+def impute_nan(df,variable,median):
+    df[variable+"_median"]=df[variable].fillna(median)
+impute_nan(df,'Age',median)
+df.head()
