@@ -1,0 +1,60 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+df=pd.read_csv('F:/iris.csv')
+df
+
+df.describe()
+
+df.isnull().sum()
+
+del df['Id']
+df
+
+## Exploratory data analysis
+
+
+
+df.shape
+
+## Univariate Analysis
+
+df_setosa=df.loc[df['Species']=='Iris-setosa']
+
+df_virginica=df.loc[df['Species']=='Iris-virginica']
+
+df_versicolor=df.loc[df['Species']=='Iris-versicolor']
+
+plt.plot(df_setosa['SepalLengthCm'],np.zeros_like(df_setosa['SepalLengthCm']),'o')
+plt.plot(df_virginica['SepalLengthCm'],np.zeros_like(df_virginica['SepalLengthCm']),'o')
+plt.plot(df_versicolor['SepalLengthCm'],np.zeros_like(df_versicolor['SepalLengthCm']),'o')
+plt.xlabel('sepallength')
+
+## Bivariate Analysis
+
+sns.FacetGrid(df,hue='Species',size=5).map(plt.scatter,"PetalLengthCm","SepalWidthCm").add_legend();
+
+
+## Multivariate Analysis
+
+sns.pairplot(df,hue='Species',height=3)
+
+
+# Bivariate Analysis
+# Covarience
+# Correlation
+
+df['SepalLengthCm'].cov(df['PetalLengthCm'])
+
+df['SepalLengthCm'].corr(df['PetalLengthCm'])
+
+# Multivariate Analysis
+# Covarience
+
+df.cov()
+
+# Multivaiate Analysis
+# correlation
+
+df.corr()
